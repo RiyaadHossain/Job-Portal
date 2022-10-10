@@ -50,8 +50,15 @@ exports.singIn = async (req, res) => {
 }
 
 exports.me = async (req, res) => {
+
     try {
 
+        const user = await service.findUserByEmail(req.user?.email)
+        if (!user) {
+            return res.status(200).json({ status: 'Failed', error: "User not found!" })
+        }
+
+        res.status(200).json({ status: 'Success', message: "User Verified", data: user })
     } catch (error) {
         res.status(500).json({ status: 'Failed', error: error.message })
     }
