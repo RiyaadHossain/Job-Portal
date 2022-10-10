@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         lowercase: true,
+        unique: true,
         validate: [validator.isEmail, 'Please provide a valid Email']
     },
     passowrd: {
@@ -30,14 +31,15 @@ const userSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'user',
+        default: 'candidate',
         enum: {
-            values: ['user', 'candidate', 'hiring-manager', 'admin'],
+            values: ['candidate', 'hiring-manager', 'admin'],
             message: "User role can't be {VALUE}"
         }
     },
-
-})
+    contactNumber: Number,
+    address: String
+}, { timestamp: true })
 
 const User = mongoose.model('User', userSchema)
 exports = User
