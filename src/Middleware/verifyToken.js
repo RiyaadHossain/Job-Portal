@@ -1,15 +1,17 @@
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
+const { findUserByEmail } = require('../Service/user.service');
 
 exports.verifyToken = async (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1]
+    const token = req.headers?.authorization?.split(" ")[1]
     if (!token) {
-        res.status(403).json({ status: 'Failed', error: "Authentication Required!" })
+        return res.status(403).json({ status: 'Failed', error: "Authentication Required!" })
     }
 
     try {
         const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-        req.user = decode
+        const user = await findUserByEmail(decode.email)
+        req.user = user
         next()
 
     } catch (error) {

@@ -39,10 +39,10 @@ const jobSchema = mongoose.Schema({
             required: true
         }
     },
-    /*  appliedCandidate: [{
+     appliedCandidate: [{
          type: ObjectId,
          ref: 'Candidate'
-     }], */
+     }],
     status: {
         type: String,
         default: 'inactive',
