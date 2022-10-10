@@ -3,7 +3,7 @@ const Candidate = require("../Model/Candidate")
 const HiringManager = require("../Model/HiringManager")
 
 exports.userExist = async (email) => {
-    const result = await User.create({ email })
+    const result = await User.findOne({ email })
     return result
 }
 
@@ -18,4 +18,9 @@ exports.signUpService = async (userInfo) => {
     }
 
     return user
+}
+
+exports.signInService = async (email) => {
+    const result = await User.findOne({ email })
+    return result
 }

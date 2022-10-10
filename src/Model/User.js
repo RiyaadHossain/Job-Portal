@@ -37,9 +37,14 @@ const userSchema = mongoose.Schema({
             message: "User role can't be {VALUE}"
         }
     },
+    status: {
+        type: String,
+        default: 'active',
+        enum: ['active', 'inactive', 'blocked']
+    },
     contactNumber: Number,
     address: String
 }, { timestamp: true })
 
 const User = mongoose.model('User', userSchema)
-exports = User
+module.exports = User
