@@ -10,7 +10,7 @@ const jobSchema = mongoose.Schema({
         type: String,
         trim: true,
         enum: {
-            vlaues: ['Asia', 'Africa', 'America', 'Europe'],
+            values: ['Asia', 'Africa', 'America', 'Europe'],
             message: '{VALUE} is not accepted as location. Chose from Asia/Africa/America/Europe '
         },
         required: [true, 'Job location is required']
@@ -18,14 +18,14 @@ const jobSchema = mongoose.Schema({
     jobType: {
         type: String,
         enum: {
-            vlaues: ['On-site', 'Remote', 'Hybrid'],
+            values: ['On-site', 'Remote', 'Hybrid'],
             message: '{VALUE} is not accepted as location. Chose from On-site/Remote/Hybrid '
         },
         required: [true, 'Job type is required']
     },
     salary: {
         type: Number,
-        required: [ture, 'Job salary is required'],
+        required: [true, 'Job salary is required'],
         min: [0, 'Job salary can\'t be negative']
     },
     postedBy: {
@@ -47,9 +47,12 @@ const jobSchema = mongoose.Schema({
         type: String,
         default: 'inactive',
         enum: {
-            vlaues: ['active', 'inactive', 'removed'],
+            values: ['active', 'inactive', 'removed'],
             message: "{VALUE} is not accepted."
         }
     }
 
-}, { timestamp: ture })
+}, { timestamp: true })
+
+const Job = mongoose.model("Job", jobSchema)
+module.exports = Job
