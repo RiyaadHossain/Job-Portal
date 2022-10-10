@@ -11,9 +11,9 @@ exports.signUpService = async (userInfo) => {
 
     const user = await User.create(userInfo)
 
-    if (userInfo.status === 'hiring-manager') {
+    if (userInfo.role === 'hiring-manager') {
         await HiringManager.create({ name: user.name, user: user._id })
-    } else if (userInfo.status === 'candidate') {
+    } else if (userInfo.role === 'candidate') {
         await Candidate.create({ name: user.name, user: user._id })
     }
 

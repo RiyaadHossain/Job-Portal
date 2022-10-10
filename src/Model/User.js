@@ -15,12 +15,12 @@ const userSchema = mongoose.Schema({
         unique: true,
         validate: [validator.isEmail, 'Please provide a valid Email']
     },
-    passowrd: {
+    password: {
         type: String,
         required: true,
         validate: {
             validator: (value) => validator.isStrongPassword(value, {
-                minLength: 6,
+                minLength: 5,
                 minLowercase: 1,
                 minUppercase: 1,
                 minNumbers: 1,
@@ -42,7 +42,7 @@ const userSchema = mongoose.Schema({
         default: 'active',
         enum: ['active', 'inactive', 'blocked']
     },
-    contactNumber: Number,
+    contactNumber: String,
     address: String
 }, { timestamp: true })
 
