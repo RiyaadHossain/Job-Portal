@@ -35,14 +35,18 @@ const jobSchema = mongoose.Schema({
         },
         id: {
             type: ObjectId,
-            ref: 'HiringManager',
+            ref: 'User',
             required: true
         }
     },
-     appliedCandidate: [{
-         type: ObjectId,
-         ref: 'Candidate'
-     }],
+    deadLine: {
+        type: Date,
+        required: true
+    },
+    appliedCandidate: [{
+        type: ObjectId,
+        ref: 'Candidate'
+    }],
     status: {
         type: String,
         default: 'inactive',

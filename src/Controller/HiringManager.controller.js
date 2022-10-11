@@ -1,15 +1,15 @@
 const service = require("../Service/HiringManager.service")
-const { findUserByEmail } = require("../Service/user.service")
 
 exports.createJob = async (req, res) => {
-    let jobInfo = req.body
+    let { lastDate, ...jobInfo } = req.body
+    let date = new Date();
+    date.setDate(date.getDate() + lastDate);
 
     try {
-        const user = await findUserByEmail(req.user.email)
-        jobInfo = { ...jobInfo, postedBy: { name: user.name, id: user._id } }
+        jobInfo = { ...jobInfo, postedBy: { name: req.user.name, id: req.user._id },  deadLine: date}
         const job = await service.createJobService(jobInfo)
 
-        res.status(201).json({ status: 'Success', message: "Job created successfully", data: job })
+        res.status(201).json({ status: 'Success', message: "Job created successfully", data: job})
     } catch (error) {
         res.status(500).json({ status: 'Failed', error: error.message })
     }
@@ -27,8 +27,8 @@ exports.getAllJobs = async (req, res) => {
 }
 
 exports.getJob = async (req, res) => {
-    const { id } = req.params 
-    
+    const { id } = req.params
+
     try {
         const job = await service.getJobService(id, req.user._id)
 
@@ -45,7 +45,7 @@ exports.getJob = async (req, res) => {
 exports.updateJob = async (req, res) => {
     const { id } = req.params
     const jobInfo = req.body
-    
+
     try {
         const job = await service.updateJobService(id, req.user._id, jobInfo)
         if (!job) {
