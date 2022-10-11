@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { default: validator } = require('validator');
+const bcrypt = require('bcrypt')
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -45,6 +46,19 @@ const userSchema = mongoose.Schema({
     contactNumber: String,
     address: String
 }, { timestamp: true })
+
+// Hash Password_____________
+userSchema.pre('save', function (next) {
+    const hashedPass = bcrypt.hashSync(this.password, 10)
+    this.password = hashedPass
+    next()
+})
+
+// Compare hash Password_____________
+userSchema.methods.compareHash = (pass, hashedPass) => {
+    const isValidPassword = bcrypt.compareSync(pass, hashedPass)
+    return isValidPassword
+}
 
 const User = mongoose.model('User', userSchema)
 module.exports = User

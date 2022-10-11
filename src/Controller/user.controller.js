@@ -4,7 +4,7 @@ const { generateToken } = require('../Utils/token')
 exports.signUp = async (req, res) => {
     const userInfo = req.body
     try {
-        
+
         const userExist = await service.userExist(userInfo.email)
         if (userExist) {
             return res.status(400).json({ status: 'Failed', error: "User already Exist with the same email" })
@@ -20,20 +20,31 @@ exports.signUp = async (req, res) => {
 
 exports.singIn = async (req, res) => {
 
-    const { email } = req.body
+    const { email, password } = req.body
+
+    if (!email | !password) {
+        return res.status(401).json({
+            status: "fail",
+            error: "Please provide email and password",
+        });
+    }
 
     try {
         const user = await service.signInService(email)
         if (!user) {
-            res.status(400).json({ status: 'Failed', error: 'User not found!' })     
+            return res.status(400).json({ status: 'Failed', error: 'User not found!' })
         }
 
-        
         if (!user.status === 'active') {
             return res.status(401).json({
                 status: "fail",
                 error: "User account isn't active. Please contact support.",
             });
+        }
+
+        const correctPass = compareHash()
+        if (!correctPass) {
+            return res.status(400).json({ status: 'Failed', error: 'User credentials is wrong' })
         }
 
         const token = generateToken(user)
