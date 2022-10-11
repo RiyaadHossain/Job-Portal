@@ -10,7 +10,12 @@ exports.getJobService = async (jobId) => {
     return job
 }
 
-exports.applyJobService = async (jobInfo) => {
-    const apply = await Job.create(jobInfo)
+exports.applyJobService = async (jobId, applicantId) => {
+    const apply = await Job.findByIdAndUpdate(jobId, { $push: { appliedCandidate: applicantId } }, {runValidators: true, new: true})
     return apply
+}
+
+exports.findJobById = async (jobId) => {
+    const job = await Job.findById(jobId)
+    return job
 }

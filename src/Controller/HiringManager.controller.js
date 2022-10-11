@@ -1,9 +1,9 @@
 const service = require("../Service/HiringManager.service")
 
 exports.createJob = async (req, res) => {
-    let { lastDate, ...jobInfo } = req.body
+    let { openingDay, ...jobInfo } = req.body
     let date = new Date();
-    date.setDate(date.getDate() + lastDate);
+    date.setDate(date.getDate() + openingDay);
 
     try {
         jobInfo = { ...jobInfo, postedBy: { name: req.user.name, id: req.user._id },  deadLine: date}
