@@ -5,16 +5,18 @@ const dotenv = require('dotenv');
 const app = express()
 
 const userRoute = require("./src/Routes/user.route")
-const hiringManagerRoute = require("./src/Routes/hiringManager.route")
+const adminRoute = require("./src/Routes/admin.route")
 const candidateRoute = require("./src/Routes/candidate.route")
+const hiringManagerRoute = require("./src/Routes/hiringManager.route")
 
 dotenv.config()
 app.use(express.json())
 
 // Routes
 app.use('/api/user', userRoute)
-app.use('/api/', hiringManagerRoute)
+app.use('/api/admin', adminRoute)
 app.use('/api/', candidateRoute)
+app.use('/api/', hiringManagerRoute)
 
 // Database Connect
 require('./src/Config/dbConfig')
