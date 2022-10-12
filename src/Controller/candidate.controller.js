@@ -62,7 +62,7 @@ exports.applyJob = async (req, res) => {
 
         const result = await service.applyJobService(jobId, applicantId)
         if (!result) {
-            return res.status(401).json({ status: 'Failed', error: "No job data found" })
+            return res.status(401).json({ status: 'Failed', error: "Sorry, couldn't apply for the job." })
         }
 
         res.status(200).json({ status: 'Success', message: "Applied for the job successfully", data: result })

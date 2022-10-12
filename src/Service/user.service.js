@@ -18,8 +18,10 @@ exports.signUpService = async (userInfo) => {
 
     if (userInfo.role === 'hiring-manager') {
         await HiringManager.create({ name: user.name, user: user._id })
-    } else if (userInfo.role === 'candidate') {
-        await Candidate.create({ name: user.name, user: user._id })
+    } else if (userInfo.role === 'admin') {
+        console.log('Do nothing')
+    } else {
+        await Candidate.create({ name: user.name, user: user._id, role: 'candidate' })
     }
 
     return user

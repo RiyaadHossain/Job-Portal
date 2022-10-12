@@ -42,7 +42,7 @@ exports.singIn = async (req, res) => {
             });
         }
 
-        const correctPass = compareHash()
+        const correctPass = user.compareHash(password, user.password)
         if (!correctPass) {
             return res.status(400).json({ status: 'Failed', error: 'User credentials is wrong' })
         }
