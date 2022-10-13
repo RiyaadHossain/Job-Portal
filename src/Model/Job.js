@@ -44,7 +44,7 @@ const jobSchema = mongoose.Schema({
         required: true
     },
     appliedCandidate: [{
-        id: {
+        applicantId: {
             type: ObjectId,
             ref: 'Candidate'
         },
