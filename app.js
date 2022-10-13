@@ -21,6 +21,11 @@ app.use('/api/', hiringManagerRoute)
 // Database Connect
 require('./src/Config/dbConfig')
 
+// Health Check
+app.get("/", (req, res) => {
+    res.send("Hello World")
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on PORT: ${PORT}`.bold.red);
 })

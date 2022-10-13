@@ -51,22 +51,26 @@ exports.applyJob = async (req, res) => {
             return res.status(500).json({ status: 'Failed', error: "No job found" })
         }
 
-        if (job.appliedCandidate.includes(applicantId)) {
-            return res.status(500).json({ status: 'Failed', error: "You'vd already applied for this job." })
-        }
+        // if (job.appliedCandidate.includes(applicantId)) {
+        //     return res.status(500).json({ status: 'Failed', error: "You'vd already applied for this job." })
+        // }
 
         const expired = new Date() > job.deadLine
         if (expired) {
             return res.status(500).json({ status: 'Failed', error: "Deadline for apply is expired" })
         }
-
-        const result = await service.applyJobService(jobId, applicantId)
+        console.log(req.file)
+        const result = await service.applyJobService(jobId, applicantId, req.file.filename)
         if (!result) {
             return res.status(401).json({ status: 'Failed', error: "Sorry, couldn't apply for the job." })
         }
-
         res.status(200).json({ status: 'Success', message: "Applied for the job successfully", data: result })
     } catch (error) {
+        console.log(error);
         res.status(500).json({ status: 'Failed', error: error.message })
     }
+}
+
+exports.uploadPhoto = (req, res) => {
+    res.send(req.file)
 }

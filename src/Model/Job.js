@@ -44,8 +44,11 @@ const jobSchema = mongoose.Schema({
         required: true
     },
     appliedCandidate: [{
-        type: ObjectId,
-        ref: 'Candidate'
+        id: {
+            type: ObjectId,
+            ref: 'Candidate'
+        },
+        resume: String
     }],
     status: {
         type: String,
