@@ -1,4 +1,4 @@
-const service = require("../Service/HiringManager.service")
+const service = require("../Service/hiringManager.service")
 
 exports.createJob = async (req, res) => {
     let { openingDay, ...jobInfo } = req.body
