@@ -4,11 +4,11 @@ const colors = require('colors');
 const dotenv = require('dotenv');
 const app = express()
 
-const userRoute = require("./src/Routes/user.route")
-const adminRoute = require("./src/Routes/admin.route")
-const generalRoute = require("./src/Routes/general.route")
-const candidateRoute = require("./src/Routes/candidate.route")
-const hiringManagerRoute = require("./src/Routes/hiringManager.route")
+const userRoute = require("./Routes/user.route")
+const adminRoute = require("./Routes/admin.route")
+const generalRoute = require("./Routes/general.route")
+const candidateRoute = require("./Routes/candidate.route")
+const hiringManagerRoute = require("./Routes/hiringManager.route")
 
 dotenv.config()
 app.use(express.json())
@@ -21,7 +21,7 @@ app.use('/api/', candidateRoute)
 app.use('/api/', hiringManagerRoute)
 
 // Database Connect
-require('./src/Config/dbConfig')
+require('./Config/dbConfig')
 
 // Health Check
 app.get("/", (req, res) => {
