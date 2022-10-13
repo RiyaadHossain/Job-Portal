@@ -13,8 +13,8 @@ exports.getJobService = async (jobId) => {
 
 exports.applyJobService = async (jobId, applicantId, resume) => {
     const appliedFor = { jobId, resume }
-    const appliedCandidate = {applicantId, resume}
-    await Job.findByIdAndUpdate(jobId, { $push: { appliedCandidate } }, { runValidators: true, new: true })
+    const appliedCandidate = { applicantId, resume }
+    await Job.findByIdAndUpdate(jobId, { $push: { appliedCandidate }, $inc: { applyCount: 1 } }, { runValidators: true, new: true })
     const apply = await Candidate.findOneAndUpdate({ user: applicantId }, { $push: { appliedFor } }, { runValidators: true, new: true })
     return apply
 }

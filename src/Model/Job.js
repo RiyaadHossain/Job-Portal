@@ -57,6 +57,10 @@ const jobSchema = mongoose.Schema({
             values: ['active', 'inactive', 'removed'],
             message: "{VALUE} is not accepted."
         }
+    },
+    applyCount: {
+        type: Number,
+        default: 0
     }
 
 }, { timestamp: true })

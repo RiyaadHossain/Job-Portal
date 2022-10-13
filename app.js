@@ -6,6 +6,7 @@ const app = express()
 
 const userRoute = require("./src/Routes/user.route")
 const adminRoute = require("./src/Routes/admin.route")
+const generalRoute = require("./src/Routes/general.route")
 const candidateRoute = require("./src/Routes/candidate.route")
 const hiringManagerRoute = require("./src/Routes/hiringManager.route")
 
@@ -13,6 +14,7 @@ dotenv.config()
 app.use(express.json())
 
 // Routes
+app.use('/api/', generalRoute)
 app.use('/api/user', userRoute)
 app.use('/api/admin', adminRoute)
 app.use('/api/', candidateRoute)
